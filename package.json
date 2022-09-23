@@ -26,7 +26,7 @@
     "drop": "npx sequelize-cli db:drop",
     "seed": "npx sequelize-cli db:seed:all",
     "pretest": "(npm run kill:test && NODE_ENV=test npm run start:test) &",
-    "test": "npx -y wait-on -t 300000 http://localhost:3030 && NODE_ENV=test API_PORT=3000 jest -i --verbose --forceExit",
+    "test": "npx -y wait-on -t 300000 http://localhost:3030 && NODE_ENV=test API_PORT=3030 jest -i --verbose --forceExit",
     "test:dev": "npx -y wait-on -t 300000 http://localhost:3000 && NODE_ENV=development API_PORT=3000 jest -i --verbose --forceExit",
     "posttest": "npm run kill:test",
     "test-coverage": "jest -i --verbose --forceExit --coverage",
