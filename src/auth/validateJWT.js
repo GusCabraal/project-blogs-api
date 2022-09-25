@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
 
     const user = await userService.getByEmail(decoded.data.email);
 
-    if (!decoded) {
+    if (!user) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }
 
