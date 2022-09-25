@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
   const token = req.header('Authorization');
 
   if (!token) {
-    return res.status(401).json({ error: 'Token não encontrado' });
+    return res.status(401).json({ error: 'Token not found' });
   }
 
   try {
@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     const user = await userService.getById(decoded.data.userId);
 
     if (!user) {
-      return res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
+      return res.status(401).json({ message: 'Expired or invalid token.' });
     }
 
     req.user = user;
