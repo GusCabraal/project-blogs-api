@@ -10,22 +10,25 @@ module.exports = async (req, res, next) => {
   const token = req.header('Authorization');
 
   if (!token) {
-    return res.status(401).json({ error: 'Token not found' });
+    return res.status(401).json({ message: 'Token not found' });
   }
 
   try {
     const decoded = jwt.verify(token, secret);
 
-    const user = await userService.getById(decoded.data.userId);
+    const user = await userService.getByEmail(decoded.data.email);
 
-    if (!user) {
-      return res.status(401).json({ message: 'Expired or invalid token.' });
+    if (!decoded) {
+      return res.status(401).json({ message: 'Expired or invalid token' });
     }
 
     req.user = user;
 
     next();
   } catch (err) {
+    if (err.message === 'jwt malformed') {
+      return res.status(401).json({ message: 'Expired or invalid token' });
+    }
     return res.status(401).json({ message: err.message });
   }
 };
