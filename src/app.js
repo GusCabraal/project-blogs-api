@@ -26,6 +26,7 @@ app.get('/categories', validateJWT, categoryController.getAll);
 app.post('/categories', validateJWT, categoryController.createCategory);
 app.post('/post', validateJWT, validateNewPostContent, blogPostController.createPost);
 app.get('/post', validateJWT, blogPostController.getAll);
+app.get('/post/:id', validateJWT, blogPostController.getById);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivoo `src/server.js`

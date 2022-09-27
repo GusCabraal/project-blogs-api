@@ -18,6 +18,19 @@ const getAll = async () => {
   return blogPost;
 };
 
+const getById = async (id) => {
+  const [blogPost] = await BlogPost.findAll({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+    attributes: { exclude: ['userId'] },
+  });
+
+  return blogPost;
+};
+
 const insert = async ({ userId, title, content, published, updated, categoryIds }) => {
   const result = await sequelize.transaction(
     async (t = sequelize.transaction()) => {
@@ -42,4 +55,5 @@ const insert = async ({ userId, title, content, published, updated, categoryIds 
 module.exports = {
   insert,
   getAll,
+  getById,
 };
