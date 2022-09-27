@@ -52,8 +52,17 @@ const insert = async ({ userId, title, content, published, updated, categoryIds 
   return result;
 };
 
+const deletePost = async (id) => {
+  const post = await BlogPost.destroy(
+    { where: { id } },
+  );
+
+  return post;
+};
+
 module.exports = {
   insert,
   getAll,
   getById,
+  deletePost,
 };

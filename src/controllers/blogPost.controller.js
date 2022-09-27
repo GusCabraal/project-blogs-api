@@ -40,9 +40,27 @@ const getById = async (req, res) => {
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
+const removeById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id: userId } = req.user;
+    const blogPost = await blogPostService.getById(id);
+    if (!blogPost) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    if (blogPost.user.id !== userId) {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
+    await blogPostService.deletePost(id);
+    return res.status(204).end();
+  } catch (e) {
+    res.status(500).json({ message: 'Ocorreu um erro' });
+  }
+};
 
 module.exports = {
   createPost,
   getAll,
   getById,
+  removeById,
 };
