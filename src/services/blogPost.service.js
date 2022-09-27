@@ -52,13 +52,7 @@ const insert = async ({ userId, title, content, published, updated, categoryIds 
   return result;
 };
 
-const deletePost = async (id) => {
-  const post = await BlogPost.destroy(
-    { where: { id } },
-  );
-
-  return post;
-};
+const deletePost = async (id) => BlogPost.destroy({ where: { id } });
 
 module.exports = {
   insert,

@@ -22,6 +22,7 @@ app.post('/login', loginController.login);
 app.post('/user', validateNewUser, userController.createUser);
 app.get('/user', validateJWT, userController.getAll);
 app.get('/user/:id', validateJWT, userController.getById);
+app.delete('/user/me', validateJWT, userController.removeUser);
 app.get('/categories', validateJWT, categoryController.getAll);
 app.post('/categories', validateJWT, categoryController.createCategory);
 app.post('/post', validateJWT, validateNewPostContent, blogPostController.createPost);
