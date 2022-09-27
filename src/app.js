@@ -1,16 +1,5 @@
 const express = require('express');
-const {
-    loginController,
-    userController,
-    categoryController,
-    blogPostController,
-} = require('./controllers');
-const validateJWT = require('./auth/validateJWT');
-const {
-    validateNewUser,
-    validateNewPostContent,
-    validateUpdatedPost,
-} = require('./middlewares/validation/validateInputValues');
+const { userRoutes, categoriesRoutes, postRoutes, loginRoutes } = require('./routers');
 // ...
 
 const app = express();
@@ -19,21 +8,10 @@ app.use(express.json());
 
 // ...
 
-app.post('/login', loginController.login);
-app.post('/user', validateNewUser, userController.createUser);
-app.get('/user', validateJWT, userController.getAll);
-app.get('/user/:id', validateJWT, userController.getById);
-app.delete('/user/me', validateJWT, userController.removeUser);
-
-app.get('/categories', validateJWT, categoryController.getAll);
-app.post('/categories', validateJWT, categoryController.createCategory);
-
-app.post('/post', validateJWT, validateNewPostContent, blogPostController.createPost);
-app.get('/post/search', validateJWT, blogPostController.getByText);
-app.get('/post', validateJWT, blogPostController.getAll);
-app.get('/post/:id', validateJWT, blogPostController.getById);
-app.put('/post/:id', validateJWT, validateUpdatedPost, blogPostController.updatedPost);
-app.delete('/post/:id', validateJWT, blogPostController.removeById);
+app.use('/login', loginRoutes);
+app.use('/user', userRoutes);
+app.use('/categories', categoriesRoutes);
+app.use('/post', postRoutes);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivoo `src/server.js`
