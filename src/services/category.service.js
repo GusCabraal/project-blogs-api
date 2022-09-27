@@ -5,6 +5,15 @@ const getAll = async () => {
 
   return categories;
 };
+const allCategoryExists = async (categoryId) => {
+  const categories = await Category.findAll({
+    where: {
+      id: categoryId,
+    },
+  });
+  if (categories.length !== categoryId.length) return true;
+  return false;
+};
 
 const createCategory = async ({ name }) => {
   const newCategory = await Category.create({ name });
@@ -15,5 +24,6 @@ const createCategory = async ({ name }) => {
 module.exports = {
   getAll,
   createCategory,
+  allCategoryExists,
 
 };

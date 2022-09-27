@@ -5,6 +5,7 @@ const BlogPostsModel = (sequelize, DataTypes) => {
         id: {
           type: DataTypes.INTEGER,
           primaryKey: true,
+          autoIncrement: true,
         },
         title: {
             type: DataTypes.STRING
@@ -14,12 +15,15 @@ const BlogPostsModel = (sequelize, DataTypes) => {
         },
         published: {
             type: DataTypes.DATE,
+            allowNull: false,
         },
         updated:{
-          type: DataTypes.STRING,
+          type: DataTypes.DATE,
+          allowNull: false,
         },
         userId:{
           type: DataTypes.INTEGER,
+          allowNull: false,
         },
       },
       {
