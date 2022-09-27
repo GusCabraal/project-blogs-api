@@ -9,6 +9,7 @@ const validateJWT = require('./auth/validateJWT');
 const {
     validateNewUser,
     validateNewPostContent,
+    validateUpdatedPost,
 } = require('./middlewares/validation/validateInputValues');
 // ...
 
@@ -23,12 +24,15 @@ app.post('/user', validateNewUser, userController.createUser);
 app.get('/user', validateJWT, userController.getAll);
 app.get('/user/:id', validateJWT, userController.getById);
 app.delete('/user/me', validateJWT, userController.removeUser);
+
 app.get('/categories', validateJWT, categoryController.getAll);
 app.post('/categories', validateJWT, categoryController.createCategory);
+
 app.post('/post', validateJWT, validateNewPostContent, blogPostController.createPost);
 app.get('/post/search', validateJWT, blogPostController.getByText);
 app.get('/post', validateJWT, blogPostController.getAll);
 app.get('/post/:id', validateJWT, blogPostController.getById);
+app.put('/post/:id', validateJWT, validateUpdatedPost, blogPostController.updatedPost);
 app.delete('/post/:id', validateJWT, blogPostController.removeById);
 
 // É importante exportar a constante `app`,

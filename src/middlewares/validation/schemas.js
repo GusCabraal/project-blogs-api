@@ -11,8 +11,13 @@ const addNewPost = Joi.object({
   content: Joi.string().required(),
   categoryIds: Joi.array().required(),
 });
+const updatedPost = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
 
 module.exports = {
   addNewUser,
   addNewPost,
+  updatedPost,
 };

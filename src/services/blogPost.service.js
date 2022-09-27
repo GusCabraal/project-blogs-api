@@ -75,10 +75,20 @@ const insert = async ({ userId, title, content, published, updated, categoryIds 
   return result;
 };
 
+const updatePost = async (id, { title, content, updated }) => {
+  const updatedPost = await BlogPost.update(
+    { title, content, updated },
+    { where: { id } },
+  );
+
+  return updatedPost;
+};
+
 const deletePost = async (id) => BlogPost.destroy({ where: { id } });
 
 module.exports = {
   insert,
+  updatePost,
   getAll,
   getById,
   deletePost,
