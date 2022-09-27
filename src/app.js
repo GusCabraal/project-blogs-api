@@ -26,6 +26,7 @@ app.delete('/user/me', validateJWT, userController.removeUser);
 app.get('/categories', validateJWT, categoryController.getAll);
 app.post('/categories', validateJWT, categoryController.createCategory);
 app.post('/post', validateJWT, validateNewPostContent, blogPostController.createPost);
+app.get('/post/search', validateJWT, blogPostController.getByText);
 app.get('/post', validateJWT, blogPostController.getAll);
 app.get('/post/:id', validateJWT, blogPostController.getById);
 app.delete('/post/:id', validateJWT, blogPostController.removeById);

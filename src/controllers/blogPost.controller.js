@@ -16,7 +16,7 @@ const createPost = async (req, res) => {
     const newBlogPost = await blogPostService.insert(newPost);
     return res.status(201).json(newBlogPost);
   } catch (e) {
-    res.status(500).json({ message: 'Ocorreu um erro' });
+    // res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
 
@@ -28,6 +28,7 @@ const getAll = async (_req, res) => {
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
+
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -40,6 +41,17 @@ const getById = async (req, res) => {
     res.status(500).json({ message: 'Ocorreu um erro' });
   }
 };
+
+const getByText = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const blogPost = await blogPostService.getByText(q);
+    return res.status(200).json(blogPost);
+  } catch (e) {
+    res.status(500).json({ message: 'Ocorreu um erro' });
+  }
+};
+
 const removeById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -62,5 +74,6 @@ module.exports = {
   createPost,
   getAll,
   getById,
+  getByText,
   removeById,
 };

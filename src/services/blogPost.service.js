@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, Category, User } = require('../models');
 
 const config = require('../config/config');
@@ -21,6 +22,28 @@ const getAll = async () => {
 const getById = async (id) => {
   const [blogPost] = await BlogPost.findAll({
     where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+    attributes: { exclude: ['userId'] },
+  });
+
+  return blogPost;
+};
+
+const getByText = async (text) => {
+  const blogPost = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        {
+          title: { [Op.like]: `%${text}%` },
+        },
+        {
+          content: { [Op.like]: `%${text}%` },
+        },
+      ],
+    },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
@@ -59,4 +82,5 @@ module.exports = {
   getAll,
   getById,
   deletePost,
+  getByText,
 };
