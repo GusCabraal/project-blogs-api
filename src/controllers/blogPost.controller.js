@@ -29,11 +29,6 @@ const updatedPost = async (req, res) => {
     const { id } = req.params;
     const { id: userId } = req.user;
 
-    const blogPost = await blogPostService.getById(id);
-    if (blogPost.user.id !== userId) {
-      return res.status(401).json({ message: 'Unauthorized user' });
-    }
-
     const updatePost = { ...req.body, userId, updated };
     await blogPostService.updatePost(id, updatePost);
     const updatedBlogPost = await blogPostService.getById(id);
@@ -79,13 +74,9 @@ const getByText = async (req, res) => {
 const removeById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId } = req.user;
     const blogPost = await blogPostService.getById(id);
     if (!blogPost) {
       return res.status(404).json({ message: 'Post does not exist' });
-    }
-    if (blogPost.user.id !== userId) {
-      return res.status(401).json({ message: 'Unauthorized user' });
     }
     await blogPostService.deletePost(id);
     return res.status(204).end();
