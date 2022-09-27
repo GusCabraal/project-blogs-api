@@ -7,6 +7,20 @@ const ERROR_MESSAGE = {
   message: 'Ocorreu um erro',
 };
 
+const isPostExists = async (id) => {
+  const blogPost = await blogPostService.getById(id);
+  console.log(blogPost);
+  if (blogPost) return blogPost;
+  return false;
+};
+
+const cannotUserEditAPost = async (userId, postId) => {
+  const { dataValues: { user: { id } } } = await blogPostService.getById(postId);
+
+    if (id !== userId) return true;
+    return false;
+};
+
 const createPost = async (req, res) => {
   try {
     const { id: userId } = req.user;
@@ -29,8 +43,11 @@ const updatedPost = async (req, res) => {
     const { id } = req.params;
     const { id: userId } = req.user;
 
-    const updatePost = { ...req.body, userId, updated };
-    await blogPostService.updatePost(id, updatePost);
+    const result = await cannotUserEditAPost(userId, id);
+    if (result) return res.status(401).json({ message: 'Unauthorized user' });
+   
+    const updatePostContent = { ...req.body, userId, updated };
+    await blogPostService.updatePost(id, updatePostContent);
     const updatedBlogPost = await blogPostService.getById(id);
     updatedBlogPost.userId = userId;
     return res.status(200).json(updatedBlogPost);
@@ -51,11 +68,9 @@ const getAll = async (_req, res) => {
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const blogPost = await blogPostService.getById(id);
-    if (!blogPost) {
-      return res.status(404).json({ message: 'Post does not exist' });
-    }
-    return res.status(200).json(blogPost);
+    const result = await isPostExists(id);
+    if (!result) return res.status(404).json({ message: 'Post does not exist' });
+    return res.status(200).json(result);
   } catch (e) {
     res.status(500).json(ERROR_MESSAGE);
   }
@@ -74,10 +89,13 @@ const getByText = async (req, res) => {
 const removeById = async (req, res) => {
   try {
     const { id } = req.params;
-    const blogPost = await blogPostService.getById(id);
-    if (!blogPost) {
-      return res.status(404).json({ message: 'Post does not exist' });
-    }
+    const { id: userId } = req.user;
+    const result = await cannotUserEditAPost(userId, id);
+    if (result) return res.status(401).json({ message: 'Unauthorized user' });
+
+    const postExists = await isPostExists(id);
+    if (postExists) return res.status(404).json({ message: 'Post does not exist' });
+    
     await blogPostService.deletePost(id);
     return res.status(204).end();
   } catch (e) {

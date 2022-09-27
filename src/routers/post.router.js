@@ -1,7 +1,6 @@
 const express = require('express');
 const validateJWT = require('../auth/validateJWT');
 const { blogPostController } = require('../controllers');
-const canUserEditAPost = require('../middlewares/canUserEditAPost');
 const {
   validateUpdatedPost,
   validateNewPostContent,
@@ -9,21 +8,16 @@ const {
 
 const router = express.Router();
 
-router.post(
-  '/',
-  validateJWT,
-  validateNewPostContent,
-  blogPostController.createPost,
-);
-router.get('/search', validateJWT, blogPostController.getByText);
-router.get('/', validateJWT, blogPostController.getAll);
-router.get('/:id', validateJWT, blogPostController.getById);
-router.put(
-  '/:id',
-  validateJWT,
-  validateUpdatedPost,
-  canUserEditAPost,
-  blogPostController.updatedPost,
-);
-router.delete('/:id', validateJWT, canUserEditAPost, blogPostController.removeById);
+router.use(validateJWT);
+
+router.post('/', validateNewPostContent, blogPostController.createPost);
+router.get('/search', blogPostController.getByText);
+router.get('/', blogPostController.getAll);
+
+router.get('/:id', blogPostController.getById);
+// router.use(isPostExist);
+
+// router.use(canUserEditAPost);
+router.delete('/:id', blogPostController.removeById);
+router.put('/:id', validateUpdatedPost, blogPostController.updatedPost);
 module.exports = router;

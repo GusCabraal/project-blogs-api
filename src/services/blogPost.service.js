@@ -20,7 +20,7 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const [blogPost] = await BlogPost.findAll({
+  const blogPost = await BlogPost.findOne({
     where: { id },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
