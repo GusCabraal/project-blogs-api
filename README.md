@@ -4,9 +4,10 @@ Esse projeto foi realizado durante o Modulo de Back-end no Bloco 6 da formação
 
 ## O que foi desenvolvido
 
-Neste projeto foi desenvolvida uma API e um banco de dados para a produção de conteúdo para um blog, essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como banco de dados e JWT para validações do usuário.
+Neste projeto foi desenvolvida uma API e um banco de dados para a produção de conteúdo para um blog, foi realizado um CRUD de postagens com uma camada de autenticação de pessoas usuárias.
 
-Você deverá desenvolver uma aplicação em Node.js usando o pacote sequelize para fazer um CRUD de posts.
+Essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como banco de dados e JWT para autenticação de usuários.
+
 
 ## Como rodar a aplicação
 
