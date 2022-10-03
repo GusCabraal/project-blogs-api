@@ -11,16 +11,23 @@ Essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como 
 
 ## Como rodar a aplicação
 
-Clone o repositório com o comando `git clone git@github.com:GusCabraal/project-blogs-api.git`
+- Clone o repositório com o comando `git clone git@github.com:GusCabraal/project-blogs-api.git`
 
 - ### Usando o docker
 
-Há um arquivo `docker-compose.yml` configurado na raiz do projeto com os serviços `node` e `db`, rode o comando `docker-compose up -d` para subir os containers, e dentro do container `blogs_api` instale as dependencias com `npm install`.
+- Há um arquivo `docker-compose.yml` configurado na raiz do projeto com os serviços `node` e `db`, rode  `docker-compose up -d` para subir os containers;
+- Entre no container `blogs_api` com `docker exec -it blogs_api`
+- Instale as dependencias `npm install`
+- Crie o banco de dados e as tabelas `npm run prestart`
+- Popule as tabelas `npm run seed`
+- Inicie o servidor `npm run degub`
+- Importe o arquivo `routes-project-blogs-api.json` para dentro do Insominia
 
 
 ## Rotas da aplicação
 
-Há uma coleção de endpoints em formato JSON para importar no Insomnia no arquivo `routes-project-blogs-api.json`;
+Com essas rotas pode ser realizado um CRUD com o banco de dados. O usuário logado pode modificar apenas os posts de sua autoria.
+
 
 ### Rotas de usuário
 
@@ -37,8 +44,6 @@ Há uma coleção de endpoints em formato JSON para importar no Insomnia no arqu
 - POST `/categories` -> Cadastra uma nova categoria;
 
 ### Rotas de posts
-
-O usuário logado pode modificar apenas os posts de sua autoria.
 
 - GET `/post` -> Lista todos os posts, com categoria e usuário autor;
 - GET `/post/:id` -> Busca um post pelo seu ID, com categoria e usuário autor;
