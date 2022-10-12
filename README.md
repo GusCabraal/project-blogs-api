@@ -16,7 +16,7 @@ Essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como 
 - ### Usando o docker
 
 - Há um arquivo `docker-compose.yml` configurado na raiz do projeto com os serviços `node` e `db`, rode  `docker-compose up -d` para subir os containers;
-- Entre no container `blogs_api` com `docker exec -it blogs_api`
+- Entre no container `blogs_api` com `docker exec -it blogs_api bash`
 - Instale as dependencias `npm install`
 - Crie o banco de dados e as tabelas `npm run prestart`
 - Popule as tabelas `npm run seed`
