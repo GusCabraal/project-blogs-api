@@ -11,7 +11,7 @@ Essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como 
 
 ## Como rodar a aplicação
 
-- Clone o repositório com o comando `git clone git@github.com:GusCabraal/project-blogs-api.git`
+- Clone o repositório com `git clone git@github.com:GusCabraal/project-blogs-api.git`
 
 - ### Usando o docker
 
@@ -22,6 +22,7 @@ Essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como 
 - Popule as tabelas `npm run seed`
 - Inicie o servidor `npm run degub`
 - Importe o arquivo `routes-project-blogs-api.json` para dentro do Insominia
+- Consuma a API sem moderação.
 
 
 ## Rotas da aplicação
