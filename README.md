@@ -20,7 +20,7 @@ Essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como 
 - Instale as dependencias `npm install`
 - Crie o banco de dados e as tabelas `npm run prestart`
 - Popule as tabelas `npm run seed`
-- Inicie o servidor `npm run degub`
+- Inicie o servidor `npm run debug`
 - Importe o arquivo `routes-project-blogs-api.json` para dentro do Insominia
 - Consuma a API sem moderação.
 
