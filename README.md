@@ -9,12 +9,9 @@ Neste projeto foi desenvolvida uma API e um banco de dados para a produção de 
 Essa aplicação é em Node.js e foi utilizado o Sequelize como ORM, MySQL como banco de dados e JWT para autenticação de usuários.
 
 
-## Como rodar a aplicação
+## Como rodar a aplicação com o docker
 
 - Clone o repositório com `git clone git@github.com:GusCabraal/project-blogs-api.git`
-
-- ### Usando o docker
-
 - Há um arquivo `docker-compose.yml` configurado na raiz do projeto com os serviços `node` e `db`, rode  `docker-compose up -d` para subir os containers;
 - Entre no container `blogs_api` com `docker exec -it blogs_api bash`
 - Instale as dependencias `npm install`
