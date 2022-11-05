@@ -1,6 +1,6 @@
 # Projeto Blogs Api
 
-Esse projeto foi realizado durante o Modulo de Back-end no Bloco 6 da formação da Trybe em outubro de 2022.
+Blogs Api foi o 23° projeto realizado durante a formação da Trybe. Esse projeto pertence a seção 6 do Modulo de Back-end e foi desenvolvido em setembro de 2022.
 
 ## O que foi desenvolvido
 
